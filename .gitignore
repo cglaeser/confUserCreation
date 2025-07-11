@@ -62,3 +62,6 @@ secrets.json
 appsettings.local.json
 *.secret
 *.key
+
+# Flags
+web-frontend/req    uirements-installed.flag

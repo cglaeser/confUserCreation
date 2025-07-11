@@ -1,0 +1,558 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-07-11 10:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:87 app.py:169
+msgid "Conference Name is required"
+msgstr ""
+
+#: app.py:93
+msgid "User count must be between 1 and 1000"
+msgstr ""
+
+#: app.py:96
+msgid "User count must be a valid number"
+msgstr ""
+
+#: app.py:133
+#, python-format
+msgid "Users created successfully! Conference: %(conference)s, Count: %(count)s"
+msgstr ""
+
+#: app.py:140
+#, python-format
+msgid "Error creating users: %(error)s"
+msgstr ""
+
+#: app.py:144 app.py:209
+msgid "Timeout while executing PowerShell script"
+msgstr ""
+
+#: app.py:146 app.py:211
+msgid "PowerShell (pwsh) is not installed or not available in PATH"
+msgstr ""
+
+#: app.py:148 app.py:213
+#, python-format
+msgid "Unexpected error: %(error)s"
+msgstr ""
+
+#: app.py:199
+#, python-format
+msgid "Users removed successfully! Conference: %(conference)s"
+msgstr ""
+
+#: app.py:205
+#, python-format
+msgid "Error removing users: %(error)s"
+msgstr ""
+
+#: templates/base.html:6 templates/base.html:61 templates/create.html:3
+#: templates/index.html:3 templates/index.html:9 templates/remove.html:3
+#: templates/status.html:3
+msgid "Conference User Management"
+msgstr ""
+
+#: templates/base.html:70 templates/index.html:3
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:75 templates/create.html:3 templates/create.html:126
+#: templates/index.html:24 templates/index.html:36
+msgid "Create Users"
+msgstr ""
+
+#: templates/base.html:80 templates/index.html:48 templates/index.html:60
+#: templates/remove.html:3 templates/remove.html:160
+msgid "Remove Users"
+msgstr ""
+
+#: templates/base.html:85
+msgid "Status"
+msgstr ""
+
+#: templates/base.html:130
+msgid "Conference User Management System - Powered by Flask"
+msgstr ""
+
+#: templates/create.html:8
+msgid "Create Conference Users"
+msgstr ""
+
+#: templates/create.html:9
+msgid "Create new users for your conference or workshop."
+msgstr ""
+
+#: templates/create.html:16 templates/remove.html:21
+msgid "Basic Settings"
+msgstr ""
+
+#: templates/create.html:20 templates/remove.html:25
+msgid "Conference Name"
+msgstr ""
+
+#: templates/create.html:22 templates/remove.html:27
+msgid "e.g. TechConf2024"
+msgstr ""
+
+#: templates/create.html:23
+msgid "Will be used as prefix for usernames (e.g. TechConf2024-user1)"
+msgstr ""
+
+#: templates/create.html:24 templates/remove.html:29
+msgid "Please enter a conference name."
+msgstr ""
+
+#: templates/create.html:28
+msgid "Number of Users"
+msgstr ""
+
+#: templates/create.html:31
+msgid "Number of users to create (1-1000)"
+msgstr ""
+
+#: templates/create.html:37 templates/remove.html:33
+msgid "Domain"
+msgstr ""
+
+#: templates/create.html:39 templates/remove.html:35
+msgid "e.g. contoso.onmicrosoft.com"
+msgstr ""
+
+#: templates/create.html:40 templates/remove.html:36
+msgid "Leave empty for tenant default domain"
+msgstr ""
+
+#: templates/create.html:44
+msgid "Password"
+msgstr ""
+
+#: templates/create.html:46
+msgid "Leave empty for automatic password"
+msgstr ""
+
+#: templates/create.html:47
+msgid "Leave empty to generate a random password"
+msgstr ""
+
+#: templates/create.html:54
+msgid "User Options"
+msgstr ""
+
+#: templates/create.html:60
+msgid "Force password change on first login"
+msgstr ""
+
+#: templates/create.html:67
+msgid "Azure Resource Groups"
+msgstr ""
+
+#: templates/create.html:73
+msgid "Create Azure resource groups for each user"
+msgstr ""
+
+#: templates/create.html:79
+msgid "Subscription ID"
+msgstr ""
+
+#: templates/create.html:81
+msgid "Azure Subscription ID"
+msgstr ""
+
+#: templates/create.html:82
+msgid "Leave empty for current subscription"
+msgstr ""
+
+#: templates/create.html:86
+msgid "Location"
+msgstr ""
+
+#: templates/create.html:88
+msgid "e.g. West Europe"
+msgstr ""
+
+#: templates/create.html:89
+msgid "Azure region for resource groups"
+msgstr ""
+
+#: templates/create.html:96
+msgid "Export Options"
+msgstr ""
+
+#: templates/create.html:99
+msgid "Excel Output Path"
+msgstr ""
+
+#: templates/create.html:101
+msgid "e.g. /workspaces/confUserCreation/users.xlsx"
+msgstr ""
+
+#: templates/create.html:102
+msgid "Full path for Excel file with user information"
+msgstr ""
+
+#: templates/create.html:108
+msgid "Execution Options"
+msgstr ""
+
+#: templates/create.html:113
+msgid "Dry Run (preview without actual creation)"
+msgstr ""
+
+#: templates/create.html:123 templates/remove.html:108
+msgid "Back"
+msgstr ""
+
+#: templates/index.html:10
+msgid "Manage conference users in Azure AD with a user-friendly web interface"
+msgstr ""
+
+#: templates/index.html:12
+msgid "Create or remove users for your conference workshops quickly and easily."
+msgstr ""
+
+#: templates/index.html:26
+msgid ""
+"Create new conference users with automatic naming, optional resource "
+"groups and Excel export."
+msgstr ""
+
+#: templates/index.html:29
+msgid "Automatic user creation"
+msgstr ""
+
+#: templates/index.html:30
+msgid "Azure AD groups"
+msgstr ""
+
+#: templates/index.html:31
+msgid "Resource groups (optional)"
+msgstr ""
+
+#: templates/index.html:32
+msgid "Excel export"
+msgstr ""
+
+#: templates/index.html:33 templates/index.html:57
+msgid "Dry-run mode"
+msgstr ""
+
+#: templates/index.html:50
+msgid ""
+"Remove conference users and associated resources after the event "
+"completion."
+msgstr ""
+
+#: templates/index.html:53
+msgid "Delete users"
+msgstr ""
+
+#: templates/index.html:54
+msgid "Remove groups"
+msgstr ""
+
+#: templates/index.html:55
+msgid "Delete resource groups"
+msgstr ""
+
+#: templates/index.html:56
+msgid "Safety confirmations"
+msgstr ""
+
+#: templates/index.html:71
+msgid "System Requirements"
+msgstr ""
+
+#: templates/index.html:76 templates/status.html:120
+msgid "PowerShell Modules"
+msgstr ""
+
+#: templates/index.html:81 templates/index.html:82
+msgid "for Resource Groups"
+msgstr ""
+
+#: templates/index.html:86
+msgid "Required Permissions"
+msgstr ""
+
+#: templates/index.html:91
+msgid "Azure Subscription Contributor (for RGs)"
+msgstr ""
+
+#: templates/index.html:97
+msgid "Check System Status"
+msgstr ""
+
+#: templates/remove.html:8
+msgid "Remove Conference Users"
+msgstr ""
+
+#: templates/remove.html:9
+msgid "Remove users and associated resources after conference completion."
+msgstr ""
+
+#: templates/remove.html:13
+msgid "Warning:"
+msgstr ""
+
+#: templates/remove.html:13
+msgid "This action cannot be undone. Use dry-run mode to get a preview."
+msgstr ""
+
+#: templates/remove.html:28
+msgid "Name of the conference whose users should be removed"
+msgstr ""
+
+#: templates/remove.html:43
+msgid "Deletion Options"
+msgstr ""
+
+#: templates/remove.html:49
+msgid "Remove associated Azure AD groups"
+msgstr ""
+
+#: templates/remove.html:51
+#, python-brace-format
+msgid "Removes the group \"{ConferenceName}-users\""
+msgstr ""
+
+#: templates/remove.html:58
+msgid "Remove associated Azure resource groups"
+msgstr ""
+
+#: templates/remove.html:61 templates/remove.html:76
+msgid "Caution:"
+msgstr ""
+
+#: templates/remove.html:61
+msgid "Removes all resources in the resource groups!"
+msgstr ""
+
+#: templates/remove.html:68
+msgid "Security Options"
+msgstr ""
+
+#: templates/remove.html:73
+msgid "Skip confirmation prompts (Force)"
+msgstr ""
+
+#: templates/remove.html:76
+msgid "Removes users without further confirmation"
+msgstr ""
+
+#: templates/remove.html:83
+msgid "Dry Run (preview without actual deletion)"
+msgstr ""
+
+#: templates/remove.html:86
+msgid "Recommended: Shows what would be removed without actually deleting"
+msgstr ""
+
+#: templates/remove.html:93
+msgid "Users to be Removed"
+msgstr ""
+
+#: templates/remove.html:95
+msgid "The system searches for users with the pattern:"
+msgstr ""
+
+#: templates/remove.html:99
+msgid ""
+"The exact list of users to be removed will be displayed during execution."
+" Use dry-run mode for a safe preview."
+msgstr ""
+
+#: templates/remove.html:111 templates/remove.html:157
+msgid "Show Preview"
+msgstr ""
+
+#: templates/remove.html:124
+msgid "Confirm Deletion"
+msgstr ""
+
+#: templates/remove.html:126
+msgid "Close"
+msgstr ""
+
+#: templates/remove.html:129
+msgid "You are about to remove conference users!"
+msgstr ""
+
+#: templates/remove.html:130
+msgid "This action cannot be undone. Are you sure you want to continue?"
+msgstr ""
+
+#: templates/remove.html:132
+msgid "Conference:"
+msgstr ""
+
+#: templates/remove.html:133
+msgid "Users with pattern:"
+msgstr ""
+
+#: templates/remove.html:134
+msgid "Remove groups:"
+msgstr ""
+
+#: templates/remove.html:135
+msgid "Remove resource groups:"
+msgstr ""
+
+#: templates/remove.html:139
+msgid "Cancel"
+msgstr ""
+
+#: templates/remove.html:141
+msgid "Yes, Remove"
+msgstr ""
+
+#: templates/remove.html:189 templates/remove.html:190
+msgid "Yes"
+msgstr ""
+
+#: templates/remove.html:189 templates/remove.html:190
+msgid "No"
+msgstr ""
+
+#: templates/status.html:3 templates/status.html:8
+msgid "System Status"
+msgstr ""
+
+#: templates/status.html:9
+msgid "Check system requirements and availability of required components."
+msgstr ""
+
+#: templates/status.html:19
+msgid "PowerShell Status"
+msgstr ""
+
+#: templates/status.html:30
+msgid "PowerShell is available and functional"
+msgstr ""
+
+#: templates/status.html:32
+msgid "PowerShell Core (pwsh) was found and can be executed."
+msgstr ""
+
+#: templates/status.html:35
+msgid "PowerShell is not available"
+msgstr ""
+
+#: templates/status.html:37
+msgid "PowerShell Core (pwsh) is not installed or not available in PATH."
+msgstr ""
+
+#: templates/status.html:38
+msgid "Installation:"
+msgstr ""
+
+#: templates/status.html:42
+msgid "Download:"
+msgstr ""
+
+#: templates/status.html:54
+msgid "PowerShell Scripts"
+msgstr ""
+
+#: templates/status.html:67
+msgid "Available"
+msgstr ""
+
+#: templates/status.html:69
+msgid "Not Found"
+msgstr ""
+
+#: templates/status.html:77
+msgid ""
+"Not all PowerShell scripts were found. Make sure they are present in the "
+"working directory."
+msgstr ""
+
+#: templates/status.html:90
+msgid "System Information"
+msgstr ""
+
+#: templates/status.html:95
+msgid "Timestamp:"
+msgstr ""
+
+#: templates/status.html:96
+msgid "Working Directory:"
+msgstr ""
+
+#: templates/status.html:97
+msgid "Flask Server:"
+msgstr ""
+
+#: templates/status.html:97
+msgid "Running on port 5000"
+msgstr ""
+
+#: templates/status.html:100
+msgid "Python Flask:"
+msgstr ""
+
+#: templates/status.html:100
+msgid "Active"
+msgstr ""
+
+#: templates/status.html:115
+msgid "Prerequisites Checklist"
+msgstr ""
+
+#: templates/status.html:125 templates/status.html:126
+#: templates/status.html:127
+msgid "optional"
+msgstr ""
+
+#: templates/status.html:130
+msgid "Installation"
+msgstr ""
+
+#: templates/status.html:136
+msgid "Azure AD Permissions"
+msgstr ""
+
+#: templates/status.html:143
+msgid "Azure Subscription (optional)"
+msgstr ""
+
+#: templates/status.html:145
+msgid "Contributor permission"
+msgstr ""
+
+#: templates/status.html:146
+msgid "Resource Group Creation Rights"
+msgstr ""
+
+#: templates/status.html:149
+msgid "Authentication"
+msgstr ""
+
+#: templates/status.html:164
+msgid "Back to Home"
+msgstr ""
+
+#: templates/status.html:167
+msgid "Refresh Status"
+msgstr ""
+
+#: templates/status.html:184
+msgid "Refreshing..."
+msgstr ""
+

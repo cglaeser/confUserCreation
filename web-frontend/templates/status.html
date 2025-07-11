@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gettext('System Status') }} - {{ gettext('Conference User Management') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-info-circle text-info"></i> {{ gettext('System Status') }}</h2>
+        <p class="lead">{{ gettext('Check system requirements and availability of required components.') }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <!-- PowerShell Status -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header {% if status.powershell_available %}bg-success{% else %}bg-danger{% endif %} text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-terminal"></i> {{ gettext('PowerShell Status') }}
+                    {% if status.powershell_available %}
+                        <i class="fas fa-check-circle float-end"></i>
+                    {% else %}
+                        <i class="fas fa-times-circle float-end"></i>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if status.powershell_available %}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ gettext('PowerShell is available and functional') }}
+                    </div>
+                    <p>{{ gettext('PowerShell Core (pwsh) was found and can be executed.') }}</p>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle"></i> {{ gettext('PowerShell is not available') }}
+                    </div>
+                    <p>{{ gettext('PowerShell Core (pwsh) is not installed or not available in PATH.') }}</p>
+                    <h6>{{ gettext('Installation:') }}</h6>
+                    <ul>
+                        <li>Ubuntu/Debian: <code>sudo apt install powershell</code></li>
+                        <li>CentOS/RHEL: <code>sudo yum install powershell</code></li>
+                        <li>{{ gettext('Download:') }} <a href="https://github.com/PowerShell/PowerShell/releases" target="_blank">GitHub Releases</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Status -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header {% if status.scripts_available['New-ConferenceUsers.ps1'] and status.scripts_available['Remove-ConferenceUsers.ps1'] %}bg-success{% else %}bg-warning{% endif %} text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-file-code"></i> {{ gettext('PowerShell Scripts') }}
+                    {% if status.scripts_available['New-ConferenceUsers.ps1'] and status.scripts_available['Remove-ConferenceUsers.ps1'] %}
+                        <i class="fas fa-check-circle float-end"></i>
+                    {% else %}
+                        <i class="fas fa-exclamation-circle float-end"></i>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% for script, available in status.scripts_available.items() %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>{{ script }}</span>
+                        {% if available %}
+                            <span class="badge bg-success"><i class="fas fa-check"></i> {{ gettext('Available') }}</span>
+                        {% else %}
+                            <span class="badge bg-danger"><i class="fas fa-times"></i> {{ gettext('Not Found') }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                {% if not (status.scripts_available['New-ConferenceUsers.ps1'] and status.scripts_available['Remove-ConferenceUsers.ps1']) %}
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {{ gettext('Not all PowerShell scripts were found. Make sure they are present in the working directory.') }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Information -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-server"></i> {{ gettext('System Information') }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>{{ gettext('Timestamp:') }}</strong> {{ status.timestamp }}<br>
+                        <strong>{{ gettext('Working Directory:') }}</strong> <code>/workspaces/confUserCreation</code><br>
+                        <strong>{{ gettext('Flask Server:') }}</strong> {{ gettext('Running on port 5000') }}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>{{ gettext('Python Flask:') }}</strong> {{ gettext('Active') }}<br>
+                        <strong>Bootstrap:</strong> 5.1.3<br>
+                        <strong>Font Awesome:</strong> 6.0.0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Prerequisites Checklist -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-list-check"></i> {{ gettext('Prerequisites Checklist') }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-puzzle-piece"></i> {{ gettext('PowerShell Modules') }}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-square-check text-muted"></i> Microsoft.Graph.Authentication</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Microsoft.Graph.Users</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Microsoft.Graph.Groups</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Az.Accounts ({{ gettext('optional') }})</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Az.Resources ({{ gettext('optional') }})</li>
+                            <li><i class="fas fa-square-check text-muted"></i> ImportExcel ({{ gettext('optional') }})</li>
+                        </ul>
+                        
+                        <h6><i class="fas fa-download"></i> {{ gettext('Installation') }}</h6>
+                        <code>Install-Module Microsoft.Graph -Scope CurrentUser</code><br>
+                        <code>Install-Module Az -Scope CurrentUser</code><br>
+                        <code>Install-Module ImportExcel -Scope CurrentUser</code>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-key"></i> {{ gettext('Azure AD Permissions') }}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-square-check text-muted"></i> User.ReadWrite.All</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Directory.ReadWrite.All</li>
+                            <li><i class="fas fa-square-check text-muted"></i> Group.ReadWrite.All</li>
+                        </ul>
+                        
+                        <h6><i class="fas fa-cloud"></i> {{ gettext('Azure Subscription (optional)') }}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-square-check text-muted"></i> {{ gettext('Contributor permission') }}</li>
+                            <li><i class="fas fa-square-check text-muted"></i> {{ gettext('Resource Group Creation Rights') }}</li>
+                        </ul>
+                        
+                        <h6><i class="fas fa-sign-in-alt"></i> {{ gettext('Authentication') }}</h6>
+                        <code>Connect-MgGraph -Scopes "User.ReadWrite.All"</code><br>
+                        <code>Connect-AzAccount</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="row">
+    <div class="col-12">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                <i class="fas fa-home"></i> {{ gettext('Back to Home') }}
+            </a>
+            <button type="button" class="btn btn-outline-info" onclick="location.reload()">
+                <i class="fas fa-sync-alt"></i> {{ gettext('Refresh Status') }}
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-refresh every 30 seconds
+setTimeout(function() {
+    location.reload();
+}, 30000);
+
+// Add visual feedback for refresh button
+document.querySelector('button[onclick="location.reload()"]').addEventListener('click', function() {
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ gettext("Refreshing...") }}';
+    this.disabled = true;
+});
+</script>
+{% endblock %}

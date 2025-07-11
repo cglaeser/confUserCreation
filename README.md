@@ -1,34 +1,125 @@
-# 🏗️ Conference User Creation Script
+# 🏗️ Conference User Management System
 
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-blue.svg)](https://github.com/PowerShell/PowerShell)
+[![Flask](https://img.shields.io/badge/Flask-2.3+-blue.svg)](https://flask.palletsprojects.com/)
 [![Azure](https://img.shields.io/badge/Azure-Entra%20ID-0078d4.svg)](https://azure.microsoft.com/en-us/services/active-directory/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/tsimiz/confUserCreation.svg)](https://github.com/tsimiz/confUserCreation/issues)
 
-A comprehensive PowerShell solution for creating and managing conference workshop user accounts in Azure/Entra ID environments. This automated tool streamlines the process of setting up multiple user accounts, groups, and resources for conferences, workshops, and training events.
+A comprehensive solution for creating and managing conference workshop user accounts in Azure/Entra ID environments. This system provides both PowerShell automation scripts and a user-friendly multilingual web interface for streamlined user management.
 
-## 📋 Table of Contents
+## 📁 Project Structure
 
-- [✨ Features](#-features)
-- [🚀 Quick Start](#-quick-start)
-- [📋 Prerequisites](#-prerequisites)
-- [💻 Usage](#-usage)
-- [⚙️ Parameters](#️-parameters)
-- [📖 Examples](#-examples)
-- [📊 Output](#-output)
-- [🔒 Security Considerations](#-security-considerations)
-- [🛠 Troubleshooting](#-troubleshooting)
-- [📄 License](#-license)
-- [🤝 Contributing](#-contributing)
-- [💬 Support](#-support)
+```
+confUserCreation/
+├── 📁 powershell-scripts/          # PowerShell automation scripts
+│   ├── New-ConferenceUsers.ps1     # Create conference users
+│   ├── Remove-ConferenceUsers.ps1  # Remove conference users
+│   └── Examples.ps1                # Usage examples
+├── 📁 web-frontend/                # Flask web application (4 languages)
+│   ├── app.py                      # Main Flask application
+│   ├── requirements.txt            # Python dependencies
+│   ├── � templates/               # HTML templates
+│   └── � translations/            # EN/DE/ES/FI translations
+├── � run.sh                       # Quick start script
+└── � start-frontend.sh            # Detailed startup script
+```
 
-## 🌟 Overview
+## � Quick Start
 
-Effortlessly create and manage hundreds of user accounts for your conferences and workshops! This PowerShell toolkit automatically discovers your Azure tenant and creates standardized user accounts with optional Azure resource groups for enhanced organization and access control.
+### Option 1: Web Interface (Recommended)
+```bash
+# Start the multilingual web frontend
+./run.sh
+
+# Open your browser to: http://localhost:5000
+# Switch between English, German, Spanish, or Finnish
+```
+
+### Option 2: PowerShell Scripts (Advanced Users)
+```bash
+# Navigate to scripts folder
+cd powershell-scripts
+
+# Create users
+./New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 10
+
+# Remove users
+./Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024"
+```
 
 ## ✨ Features
 
-- 🔍 **Automatic Tenant Discovery**: Automatically detects and uses the current Azure tenant
+### 🌐 Web Frontend
+- **Multilingual Support**: English, German, Spanish, Finnish interfaces
+- **Intuitive Interface**: User-friendly forms with real-time validation
+- **System Diagnostics**: Built-in status checking and requirements validation
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Security**: Form validation, error handling, and safe parameter passing
+
+### ⚡ PowerShell Scripts
+- **Automated User Creation**: Bulk creation with standardized naming conventions
+- **Azure Integration**: Full Azure AD and Azure Resource Groups support  
+- **Excel Export**: Detailed spreadsheet output with all user information
+- **Dry-Run Mode**: Safe preview mode before making actual changes
+- **Comprehensive Logging**: Detailed progress and error reporting
+
+## 📋 System Requirements
+
+### For Web Frontend
+- **Python 3.6+** with pip
+- **Web Browser** (Chrome, Firefox, Safari, Edge)
+- **PowerShell Core (pwsh)** for backend script execution
+
+### For PowerShell Scripts
+- **PowerShell 5.1+** or **PowerShell Core 6+**
+- **Azure CLI** or **PowerShell Az modules** (optional, for resource groups)
+- **Microsoft Graph PowerShell modules**
+
+### Azure Permissions Required
+- `User.ReadWrite.All`
+- `Directory.ReadWrite.All` 
+- `Group.ReadWrite.All`
+- Azure Subscription Contributor (for resource groups)
+
+## � Usage Examples
+
+### Web Interface Usage
+```bash
+# Start the web server
+./run.sh
+
+# Navigate to http://localhost:5000
+# 1. Select "Create Users" for bulk user creation
+# 2. Select "Remove Users" for cleanup
+# 3. Select "Status" for system diagnostics
+# 4. Use language switcher for German/Spanish/Finnish
+```
+
+### PowerShell Script Usage
+```bash
+# Navigate to PowerShell scripts
+cd powershell-scripts
+
+# Basic user creation
+./New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 10
+
+# Advanced creation with resource groups
+./New-ConferenceUsers.ps1 -ConferenceName "MyWorkshop" -UserCount 5 -CreateResourceGroups -Location "West Europe"
+
+# Safe cleanup
+./Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -DryRun
+```
+
+## 📖 Documentation
+
+- **[Web Frontend Guide](README-WebFrontend.md)** - Complete web interface documentation
+- **[Multilingual Setup](MULTILINGUAL_SETUP.md)** - Translation and i18n configuration  
+- **[Deployment Guide](DEPLOYMENT.md)** - Production deployment instructions
+
+## 🎯 PowerShell Script Features
+
+- �🔍 **Automatic Tenant Discovery**: Automatically detects and uses the current Azure tenant
 - 📝 **Standardized Naming**: Creates users with pattern `<ConferenceName>-user1`, `<ConferenceName>-user2`, etc.
 - 👥 **Entra ID Group Management**: Creates and manages Entra ID groups for conference users
 - 🏗️ **Azure Resource Groups**: Optionally creates individual resource groups for each user
@@ -41,9 +132,9 @@ Effortlessly create and manage hundreds of user accounts for your conferences an
 - 🧹 **Cleanup Support**: Includes deletion script for removing created resources
 - 📊 **Detailed Reporting**: Comprehensive output with progress tracking
 
-## 🚀 Quick Start
+## � Installation & Setup
 
-1. **📦 Install required modules:**
+1. **📦 Install required PowerShell modules:**
    ```powershell
    Install-Module Microsoft.Graph.Authentication -Force
    Install-Module Microsoft.Graph.Users -Force
@@ -51,7 +142,12 @@ Effortlessly create and manage hundreds of user accounts for your conferences an
    Install-Module Microsoft.Graph.Identity.DirectoryManagement -Force
    ```
 
-2. **🎯 Create your first conference (basic):**
+2. **🐍 Install Python dependencies (for web frontend):**
+   ```bash
+   pip install -r web-frontend/requirements.txt
+   ```
+
+3. **🎯 Test your setup:**
    ```powershell
    .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 10
    ```

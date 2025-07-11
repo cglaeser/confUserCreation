@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gettext('Home') }} - {{ gettext('Conference User Management') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-5 rounded-3 text-center mb-4">
+            <h1 class="display-4"><i class="fas fa-users text-primary"></i> {{ gettext('Conference User Management') }}</h1>
+            <p class="lead">{{ gettext('Manage conference users in Azure AD with a user-friendly web interface') }}</p>
+            <hr class="my-4">
+            <p>{{ gettext('Create or remove users for your conference workshops quickly and easily.') }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-user-plus fa-3x text-success"></i>
+                </div>
+                <h5 class="card-title">{{ gettext('Create Users') }}</h5>
+                <p class="card-text">
+                    {{ gettext('Create new conference users with automatic naming, optional resource groups and Excel export.') }}
+                </p>
+                <ul class="list-unstyled text-start">
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Automatic user creation') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Azure AD groups') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Resource groups (optional)') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Excel export') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Dry-run mode') }}</li>
+                </ul>
+                <a href="{{ url_for('create_users') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-user-plus"></i> {{ gettext('Create Users') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-user-minus fa-3x text-danger"></i>
+                </div>
+                <h5 class="card-title">{{ gettext('Remove Users') }}</h5>
+                <p class="card-text">
+                    {{ gettext('Remove conference users and associated resources after the event completion.') }}
+                </p>
+                <ul class="list-unstyled text-start">
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Delete users') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Remove groups') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Delete resource groups') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Safety confirmations') }}</li>
+                    <li><i class="fas fa-check text-success"></i> {{ gettext('Dry-run mode') }}</li>
+                </ul>
+                <a href="{{ url_for('remove_users') }}" class="btn btn-danger btn-lg">
+                    <i class="fas fa-user-minus"></i> {{ gettext('Remove Users') }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-info-circle"></i> {{ gettext('System Requirements') }}</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-cog"></i> {{ gettext('PowerShell Modules') }}</h6>
+                        <ul>
+                            <li>Microsoft.Graph.Authentication</li>
+                            <li>Microsoft.Graph.Users</li>
+                            <li>Microsoft.Graph.Groups</li>
+                            <li>Az.Accounts ({{ gettext('for Resource Groups') }})</li>
+                            <li>Az.Resources ({{ gettext('for Resource Groups') }})</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-key"></i> {{ gettext('Required Permissions') }}</h6>
+                        <ul>
+                            <li>User.ReadWrite.All</li>
+                            <li>Directory.ReadWrite.All</li>
+                            <li>Group.ReadWrite.All</li>
+                            <li>{{ gettext('Azure Subscription Contributor (for RGs)') }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('status') }}" class="btn btn-outline-info">
+                        <i class="fas fa-diagnostics"></i> {{ gettext('Check System Status') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

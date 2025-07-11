@@ -1,0 +1,558 @@
+# Finnish translations for Conference User Management.
+# Copyright (C) 2025
+# This file is distributed under the same license as the Conference User Management project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Conference User Management 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-11 10:21+0000\n"
+"PO-Revision-Date: 2025-07-11 12:30+0000\n"
+"Last-Translator: \n"
+"Language: fi\n"
+"Language-Team: fi <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app.py:87 app.py:169
+msgid "Conference Name is required"
+msgstr "Konferenssin nimi on pakollinen"
+
+#: app.py:93
+msgid "User count must be between 1 and 1000"
+msgstr "Käyttäjien määrän tulee olla välillä 1-1000"
+
+#: app.py:96
+msgid "User count must be a valid number"
+msgstr "Käyttäjien määrän tulee olla kelvollinen luku"
+
+#: app.py:133
+#, python-format
+msgid "Users created successfully! Conference: %(conference)s, Count: %(count)s"
+msgstr "Käyttäjät luotu onnistuneesti! Konferenssi: %(conference)s, Määrä: %(count)s"
+
+#: app.py:140
+#, python-format
+msgid "Error creating users: %(error)s"
+msgstr "Virhe käyttäjien luomisessa: %(error)s"
+
+#: app.py:144 app.py:209
+msgid "Timeout while executing PowerShell script"
+msgstr "Aikakatkaisu PowerShell-skriptin suorittamisessa"
+
+#: app.py:146 app.py:211
+msgid "PowerShell (pwsh) is not installed or not available in PATH"
+msgstr "PowerShell (pwsh) ei ole asennettu tai ei ole käytettävissä PATH:issa"
+
+#: app.py:148 app.py:213
+#, python-format
+msgid "Unexpected error: %(error)s"
+msgstr "Odottamaton virhe: %(error)s"
+
+#: app.py:199
+#, python-format
+msgid "Users removed successfully! Conference: %(conference)s"
+msgstr "Käyttäjät poistettu onnistuneesti! Konferenssi: %(conference)s"
+
+#: app.py:205
+#, python-format
+msgid "Error removing users: %(error)s"
+msgstr "Virhe käyttäjien poistamisessa: %(error)s"
+
+#: templates/base.html:6 templates/base.html:61 templates/create.html:3
+#: templates/index.html:3 templates/index.html:9 templates/remove.html:3
+#: templates/status.html:3
+msgid "Conference User Management"
+msgstr "Konferenssi Käyttäjähallinta"
+
+#: templates/base.html:70 templates/index.html:3
+msgid "Home"
+msgstr "Etusivu"
+
+#: templates/base.html:75 templates/create.html:3 templates/create.html:126
+#: templates/index.html:24 templates/index.html:36
+msgid "Create Users"
+msgstr "Luo Käyttäjiä"
+
+#: templates/base.html:80 templates/index.html:48 templates/index.html:60
+#: templates/remove.html:3 templates/remove.html:160
+msgid "Remove Users"
+msgstr "Poista Käyttäjiä"
+
+#: templates/base.html:85
+msgid "Status"
+msgstr "Tila"
+
+#: templates/base.html:130
+msgid "Conference User Management System - Powered by Flask"
+msgstr "Konferenssi Käyttäjähallintajärjestelmä - Toteutettu Flask:lla"
+
+#: templates/create.html:8
+msgid "Create Conference Users"
+msgstr "Luo Konferenssi Käyttäjiä"
+
+#: templates/create.html:9
+msgid "Create new users for your conference or workshop."
+msgstr "Luo uusia käyttäjiä konferenssiisi tai työpajaasi."
+
+#: templates/create.html:16 templates/remove.html:21
+msgid "Basic Settings"
+msgstr "Perusasetukset"
+
+#: templates/create.html:20 templates/remove.html:25
+msgid "Conference Name"
+msgstr "Konferenssin Nimi"
+
+#: templates/create.html:22 templates/remove.html:27
+msgid "e.g. TechConf2024"
+msgstr "esim. TechConf2024"
+
+#: templates/create.html:23
+msgid "Will be used as prefix for usernames (e.g. TechConf2024-user1)"
+msgstr "Käytetään käyttäjänimien etuliitteenä (esim. TechConf2024-user1)"
+
+#: templates/create.html:24 templates/remove.html:29
+msgid "Please enter a conference name."
+msgstr "Ole hyvä ja syötä konferenssin nimi."
+
+#: templates/create.html:28
+msgid "Number of Users"
+msgstr "Käyttäjien Määrä"
+
+#: templates/create.html:31
+msgid "Number of users to create (1-1000)"
+msgstr "Luotavien käyttäjien määrä (1-1000)"
+
+#: templates/create.html:37 templates/remove.html:33
+msgid "Domain"
+msgstr "Verkkotunnus"
+
+#: templates/create.html:39 templates/remove.html:35
+msgid "e.g. contoso.onmicrosoft.com"
+msgstr "esim. contoso.onmicrosoft.com"
+
+#: templates/create.html:40 templates/remove.html:36
+msgid "Leave empty for tenant default domain"
+msgstr "Jätä tyhjäksi käyttääksesi vuokraajan oletusverkkotunnusta"
+
+#: templates/create.html:44
+msgid "Password"
+msgstr "Salasana"
+
+#: templates/create.html:46
+msgid "Leave empty for automatic password"
+msgstr "Jätä tyhjäksi automaattista salasanaa varten"
+
+#: templates/create.html:47
+msgid "Leave empty to generate a random password"
+msgstr "Jätä tyhjäksi luodaksesi satunnaisen salasanan"
+
+#: templates/create.html:54
+msgid "User Options"
+msgstr "Käyttäjäasetukset"
+
+#: templates/create.html:60
+msgid "Force password change on first login"
+msgstr "Pakota salasanan vaihto ensimmäisellä kirjautumisella"
+
+#: templates/create.html:67
+msgid "Azure Resource Groups"
+msgstr "Azure Resurssiryhmät"
+
+#: templates/create.html:73
+msgid "Create Azure resource groups for each user"
+msgstr "Luo Azure resurssiryhmät jokaiselle käyttäjälle"
+
+#: templates/create.html:79
+msgid "Subscription ID"
+msgstr "Tilaus ID"
+
+#: templates/create.html:81
+msgid "Azure Subscription ID"
+msgstr "Azure Tilaus ID"
+
+#: templates/create.html:82
+msgid "Leave empty for current subscription"
+msgstr "Jätä tyhjäksi nykyistä tilausta varten"
+
+#: templates/create.html:86
+msgid "Location"
+msgstr "Sijainti"
+
+#: templates/create.html:88
+msgid "e.g. West Europe"
+msgstr "esim. West Europe"
+
+#: templates/create.html:89
+msgid "Azure region for resource groups"
+msgstr "Azure alue resurssiryhmille"
+
+#: templates/create.html:96
+msgid "Export Options"
+msgstr "Vienti Asetukset"
+
+#: templates/create.html:99
+msgid "Excel Output Path"
+msgstr "Excel Tulostus Polku"
+
+#: templates/create.html:101
+msgid "e.g. /workspaces/confUserCreation/users.xlsx"
+msgstr "esim. /workspaces/confUserCreation/users.xlsx"
+
+#: templates/create.html:102
+msgid "Full path for Excel file with user information"
+msgstr "Koko polku Excel-tiedostolle käyttäjätietojen kanssa"
+
+#: templates/create.html:108
+msgid "Execution Options"
+msgstr "Suoritusasetukset"
+
+#: templates/create.html:113
+msgid "Dry Run (preview without actual creation)"
+msgstr "Harjoitusajo (esikatselu ilman todellista luomista)"
+
+#: templates/create.html:123 templates/remove.html:108
+msgid "Back"
+msgstr "Takaisin"
+
+#: templates/index.html:10
+msgid "Manage conference users in Azure AD with a user-friendly web interface"
+msgstr "Hallinnoi konferenssi käyttäjiä Azure AD:ssä käyttäjäystävällisellä web-käyttöliittymällä"
+
+#: templates/index.html:12
+msgid "Create or remove users for your conference workshops quickly and easily."
+msgstr "Luo tai poista käyttäjiä konferenssi työpajoihisi nopeasti ja helposti."
+
+#: templates/index.html:26
+msgid ""
+"Create new conference users with automatic naming, optional resource "
+"groups and Excel export."
+msgstr "Luo uusia konferenssi käyttäjiä automaattisella nimeämisellä, valinnaisilla resurssiryhmillä ja Excel-viennillä."
+
+#: templates/index.html:29
+msgid "Automatic user creation"
+msgstr "Automaattinen käyttäjien luominen"
+
+#: templates/index.html:30
+msgid "Azure AD groups"
+msgstr "Azure AD ryhmät"
+
+#: templates/index.html:31
+msgid "Resource groups (optional)"
+msgstr "Resurssiryhmät (valinnainen)"
+
+#: templates/index.html:32
+msgid "Excel export"
+msgstr "Excel-vienti"
+
+#: templates/index.html:33 templates/index.html:57
+msgid "Dry-run mode"
+msgstr "Harjoitusajo-tila"
+
+#: templates/index.html:50
+msgid ""
+"Remove conference users and associated resources after the event "
+"completion."
+msgstr "Poista konferenssi käyttäjät ja liittyvät resurssit tapahtuman päätyttyä."
+
+#: templates/index.html:53
+msgid "Delete users"
+msgstr "Poista käyttäjät"
+
+#: templates/index.html:54
+msgid "Remove groups"
+msgstr "Poista ryhmät"
+
+#: templates/index.html:55
+msgid "Delete resource groups"
+msgstr "Poista resurssiryhmät"
+
+#: templates/index.html:56
+msgid "Safety confirmations"
+msgstr "Turvavahvistukset"
+
+#: templates/index.html:71
+msgid "System Requirements"
+msgstr "Järjestelmävaatimukset"
+
+#: templates/index.html:76 templates/status.html:120
+msgid "PowerShell Modules"
+msgstr "PowerShell Moduulit"
+
+#: templates/index.html:81 templates/index.html:82
+msgid "for Resource Groups"
+msgstr "resurssiryhmille"
+
+#: templates/index.html:86
+msgid "Required Permissions"
+msgstr "Vaaditut Käyttöoikeudet"
+
+#: templates/index.html:91
+msgid "Azure Subscription Contributor (for RGs)"
+msgstr "Azure Tilauksen Avustaja (RG:ille)"
+
+#: templates/index.html:97
+msgid "Check System Status"
+msgstr "Tarkista Järjestelmän Tila"
+
+#: templates/remove.html:8
+msgid "Remove Conference Users"
+msgstr "Poista Konferenssi Käyttäjiä"
+
+#: templates/remove.html:9
+msgid "Remove users and associated resources after conference completion."
+msgstr "Poista käyttäjät ja liittyvät resurssit konferenssin päätyttyä."
+
+#: templates/remove.html:13
+msgid "Warning:"
+msgstr "Varoitus:"
+
+#: templates/remove.html:13
+msgid "This action cannot be undone. Use dry-run mode to get a preview."
+msgstr "Tätä toimintoa ei voi perua. Käytä harjoitusajo-tilaa esikatselun saamiseksi."
+
+#: templates/remove.html:28
+msgid "Name of the conference whose users should be removed"
+msgstr "Konferenssin nimi, jonka käyttäjät tulisi poistaa"
+
+#: templates/remove.html:43
+msgid "Deletion Options"
+msgstr "Poisto Asetukset"
+
+#: templates/remove.html:49
+msgid "Remove associated Azure AD groups"
+msgstr "Poista liittyvät Azure AD ryhmät"
+
+#: templates/remove.html:51
+#, python-brace-format
+msgid "Removes the group \"{ConferenceName}-users\""
+msgstr "Poistaa ryhmän \"{ConferenceName}-users\""
+
+#: templates/remove.html:58
+msgid "Remove associated Azure resource groups"
+msgstr "Poista liittyvät Azure resurssiryhmät"
+
+#: templates/remove.html:61 templates/remove.html:76
+msgid "Caution:"
+msgstr "Varoitus:"
+
+#: templates/remove.html:61
+msgid "Removes all resources in the resource groups!"
+msgstr "Poistaa kaikki resurssit resurssiryhmistä!"
+
+#: templates/remove.html:68
+msgid "Security Options"
+msgstr "Turvallisuus Asetukset"
+
+#: templates/remove.html:73
+msgid "Skip confirmation prompts (Force)"
+msgstr "Ohita vahvistus kehotukset (Pakota)"
+
+#: templates/remove.html:76
+msgid "Removes users without further confirmation"
+msgstr "Poistaa käyttäjät ilman lisävahvistusta"
+
+#: templates/remove.html:83
+msgid "Dry Run (preview without actual deletion)"
+msgstr "Harjoitusajo (esikatselu ilman todellista poistoa)"
+
+#: templates/remove.html:86
+msgid "Recommended: Shows what would be removed without actually deleting"
+msgstr "Suositeltu: Näyttää mitä poistettaisiin ilman todellista poistamista"
+
+#: templates/remove.html:93
+msgid "Users to be Removed"
+msgstr "Poistettavat Käyttäjät"
+
+#: templates/remove.html:95
+msgid "The system searches for users with the pattern:"
+msgstr "Järjestelmä etsii käyttäjiä kaavalla:"
+
+#: templates/remove.html:99
+msgid ""
+"The exact list of users to be removed will be displayed during execution."
+" Use dry-run mode for a safe preview."
+msgstr "Tarkka lista poistettavista käyttäjistä näytetään suorituksen aikana. Käytä harjoitusajo-tilaa turvallista esikatselua varten."
+
+#: templates/remove.html:111 templates/remove.html:157
+msgid "Show Preview"
+msgstr "Näytä Esikatselu"
+
+#: templates/remove.html:124
+msgid "Confirm Deletion"
+msgstr "Vahvista Poisto"
+
+#: templates/remove.html:126
+msgid "Close"
+msgstr "Sulje"
+
+#: templates/remove.html:129
+msgid "You are about to remove conference users!"
+msgstr "Olet poistamassa konferenssi käyttäjiä!"
+
+#: templates/remove.html:130
+msgid "This action cannot be undone. Are you sure you want to continue?"
+msgstr "Tätä toimintoa ei voi perua. Oletko varma että haluat jatkaa?"
+
+#: templates/remove.html:132
+msgid "Conference:"
+msgstr "Konferenssi:"
+
+#: templates/remove.html:133
+msgid "Users with pattern:"
+msgstr "Käyttäjät kaavalla:"
+
+#: templates/remove.html:134
+msgid "Remove groups:"
+msgstr "Poista ryhmät:"
+
+#: templates/remove.html:135
+msgid "Remove resource groups:"
+msgstr "Poista resurssiryhmät:"
+
+#: templates/remove.html:139
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: templates/remove.html:141
+msgid "Yes, Remove"
+msgstr "Kyllä, Poista"
+
+#: templates/remove.html:189 templates/remove.html:190
+msgid "Yes"
+msgstr "Kyllä"
+
+#: templates/remove.html:189 templates/remove.html:190
+msgid "No"
+msgstr "Ei"
+
+#: templates/status.html:3 templates/status.html:8
+msgid "System Status"
+msgstr "Järjestelmän Tila"
+
+#: templates/status.html:9
+msgid "Check system requirements and availability of required components."
+msgstr "Tarkista järjestelmävaatimukset ja vaadittujen komponenttien saatavuus."
+
+#: templates/status.html:19
+msgid "PowerShell Status"
+msgstr "PowerShell Tila"
+
+#: templates/status.html:30
+msgid "PowerShell is available and functional"
+msgstr "PowerShell on saatavilla ja toimiva"
+
+#: templates/status.html:32
+msgid "PowerShell Core (pwsh) was found and can be executed."
+msgstr "PowerShell Core (pwsh) löydettiin ja sitä voidaan suorittaa."
+
+#: templates/status.html:35
+msgid "PowerShell is not available"
+msgstr ""
+
+#: templates/status.html:37
+msgid "PowerShell Core (pwsh) is not installed or not available in PATH."
+msgstr ""
+
+#: templates/status.html:38
+msgid "Installation:"
+msgstr ""
+
+#: templates/status.html:42
+msgid "Download:"
+msgstr ""
+
+#: templates/status.html:54
+msgid "PowerShell Scripts"
+msgstr ""
+
+#: templates/status.html:67
+msgid "Available"
+msgstr ""
+
+#: templates/status.html:69
+msgid "Not Found"
+msgstr ""
+
+#: templates/status.html:77
+msgid ""
+"Not all PowerShell scripts were found. Make sure they are present in the "
+"working directory."
+msgstr ""
+
+#: templates/status.html:90
+msgid "System Information"
+msgstr ""
+
+#: templates/status.html:95
+msgid "Timestamp:"
+msgstr ""
+
+#: templates/status.html:96
+msgid "Working Directory:"
+msgstr ""
+
+#: templates/status.html:97
+msgid "Flask Server:"
+msgstr ""
+
+#: templates/status.html:97
+msgid "Running on port 5000"
+msgstr "Käynnissä portissa 5000"
+
+#: templates/status.html:100
+msgid "Python Flask:"
+msgstr "Python Flask:"
+
+#: templates/status.html:100
+msgid "Active"
+msgstr "Aktiivinen"
+
+#: templates/status.html:115
+msgid "Prerequisites Checklist"
+msgstr "Esivaatimusten Tarkistuslista"
+
+#: templates/status.html:125 templates/status.html:126
+#: templates/status.html:127
+msgid "optional"
+msgstr "valinnainen"
+
+#: templates/status.html:130
+msgid "Installation"
+msgstr "Asennus"
+
+#: templates/status.html:136
+msgid "Azure AD Permissions"
+msgstr "Azure AD Käyttöoikeudet"
+
+#: templates/status.html:143
+msgid "Azure Subscription (optional)"
+msgstr "Azure Tilaus (valinnainen)"
+
+#: templates/status.html:145
+msgid "Contributor permission"
+msgstr "Avustaja käyttöoikeus"
+
+#: templates/status.html:146
+msgid "Resource Group Creation Rights"
+msgstr "Resurssiryhmän Luomis Oikeudet"
+
+#: templates/status.html:149
+msgid "Authentication"
+msgstr "Tunnistautuminen"
+
+#: templates/status.html:164
+msgid "Back to Home"
+msgstr "Takaisin Etusivulle"
+
+#: templates/status.html:167
+msgid "Refresh Status"
+msgstr "Päivitä Tila"
+
+#: templates/status.html:184
+msgid "Refreshing..."
+msgstr "Päivitetään..."
+

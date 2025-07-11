@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gettext('Remove Users') }} - {{ gettext('Conference User Management') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2><i class="fas fa-user-minus text-danger"></i> {{ gettext('Remove Conference Users') }}</h2>
+        <p class="lead">{{ gettext('Remove users and associated resources after conference completion.') }}</p>
+        
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>{{ gettext('Warning:') }}</strong> {{ gettext('This action cannot be undone. Use dry-run mode to get a preview.') }}
+        </div>
+    </div>
+</div>
+
+<form method="POST" class="needs-validation" novalidate>
+    <!-- Basic Settings -->
+    <div class="form-section">
+        <h5><i class="fas fa-cog"></i> {{ gettext('Basic Settings') }}</h5>
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="conference_name" class="form-label">{{ gettext('Conference Name') }} *</label>
+                <input type="text" class="form-control" id="conference_name" name="conference_name" 
+                       placeholder="{{ gettext('e.g. TechConf2024') }}" required>
+                <div class="form-text">{{ gettext('Name of the conference whose users should be removed') }}</div>
+                <div class="invalid-feedback">{{ gettext('Please enter a conference name.') }}</div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label for="domain" class="form-label">{{ gettext('Domain') }}</label>
+                <input type="text" class="form-control" id="domain" name="domain" 
+                       placeholder="{{ gettext('e.g. contoso.onmicrosoft.com') }}">
+                <div class="form-text">{{ gettext('Leave empty for tenant default domain') }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deletion Options -->
+    <div class="form-section">
+        <h5><i class="fas fa-trash"></i> {{ gettext('Deletion Options') }}</h5>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="remove_groups" 
+                   name="remove_groups" checked>
+            <label class="form-check-label" for="remove_groups">
+                {{ gettext('Remove associated Azure AD groups') }}
+            </label>
+            <div class="form-text">{{ gettext('Removes the group "{ConferenceName}-users"') }}</div>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="remove_resource_groups" 
+                   name="remove_resource_groups">
+            <label class="form-check-label" for="remove_resource_groups">
+                {{ gettext('Remove associated Azure resource groups') }}
+            </label>
+            <div class="form-text">
+                <strong>{{ gettext('Caution:') }}</strong> {{ gettext('Removes all resources in the resource groups!') }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Options -->
+    <div class="form-section">
+        <h5><i class="fas fa-shield-alt"></i> {{ gettext('Security Options') }}</h5>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="force" name="force">
+            <label class="form-check-label" for="force">
+                {{ gettext('Skip confirmation prompts (Force)') }}
+            </label>
+            <div class="form-text">
+                <strong>{{ gettext('Caution:') }}</strong> {{ gettext('Removes users without further confirmation') }}
+            </div>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="dry_run" name="dry_run" checked>
+            <label class="form-check-label" for="dry_run">
+                {{ gettext('Dry Run (preview without actual deletion)') }}
+            </label>
+            <div class="form-text">
+                {{ gettext('Recommended: Shows what would be removed without actually deleting') }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Found Users Preview -->
+    <div class="form-section">
+        <h5><i class="fas fa-search"></i> {{ gettext('Users to be Removed') }}</h5>
+        <p class="text-muted">
+            {{ gettext('The system searches for users with the pattern:') }} <code>{ConferenceName}-user*</code>
+        </p>
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            {{ gettext('The exact list of users to be removed will be displayed during execution. Use dry-run mode for a safe preview.') }}
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> {{ gettext('Back') }}
+                </a>
+                <button type="submit" class="btn btn-danger btn-lg" id="submit_btn">
+                    <i class="fas fa-user-minus"></i> <span id="btn_text">{{ gettext('Show Preview') }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmModalLabel">
+                    <i class="fas fa-exclamation-triangle"></i> {{ gettext('Confirm Deletion') }}
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ gettext('Close') }}"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>{{ gettext('You are about to remove conference users!') }}</strong></p>
+                <p>{{ gettext('This action cannot be undone. Are you sure you want to continue?') }}</p>
+                <ul>
+                    <li>{{ gettext('Conference:') }} <span id="modal_conference_name"></span></li>
+                    <li>{{ gettext('Users with pattern:') }} <code id="modal_pattern"></code></li>
+                    <li>{{ gettext('Remove groups:') }} <span id="modal_groups"></span></li>
+                    <li>{{ gettext('Remove resource groups:') }} <span id="modal_rgs"></span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ gettext('Cancel') }}</button>
+                <button type="button" class="btn btn-danger" id="confirm_delete">
+                    <i class="fas fa-trash"></i> {{ gettext('Yes, Remove') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Update button text based on dry run setting
+document.getElementById('dry_run').addEventListener('change', function() {
+    const btnText = document.getElementById('btn_text');
+    const submitBtn = document.getElementById('submit_btn');
+    
+    if (this.checked) {
+        btnText.textContent = '{{ gettext("Show Preview") }}';
+        submitBtn.className = 'btn btn-warning btn-lg';
+    } else {
+        btnText.textContent = '{{ gettext("Remove Users") }}';
+        submitBtn.className = 'btn btn-danger btn-lg';
+    }
+});
+
+// Form validation and confirmation
+document.querySelector('form').addEventListener('submit', function(event) {
+    // Validate form first
+    if (!this.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.classList.add('was-validated');
+        return;
+    }
+    
+    // If not dry run and not force, show confirmation modal
+    const dryRun = document.getElementById('dry_run').checked;
+    const force = document.getElementById('force').checked;
+    
+    if (!dryRun && !force) {
+        event.preventDefault();
+        
+        // Fill modal with form data
+        const conferenceName = document.getElementById('conference_name').value;
+        const removeGroups = document.getElementById('remove_groups').checked;
+        const removeRGs = document.getElementById('remove_resource_groups').checked;
+        
+        document.getElementById('modal_conference_name').textContent = conferenceName;
+        document.getElementById('modal_pattern').textContent = conferenceName + '-user*';
+        document.getElementById('modal_groups').textContent = removeGroups ? '{{ gettext("Yes") }}' : '{{ gettext("No") }}';
+        document.getElementById('modal_rgs').textContent = removeRGs ? '{{ gettext("Yes") }}' : '{{ gettext("No") }}';
+        
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        modal.show();
+    }
+});
+
+// Confirm delete button in modal
+document.getElementById('confirm_delete').addEventListener('click', function() {
+    // Hide modal and submit form
+    const modal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+    modal.hide();
+    
+    // Submit the form
+    document.querySelector('form').submit();
+});
+
+// Form validation styling
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+</script>
+{% endblock %}

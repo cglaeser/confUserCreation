@@ -64,4 +64,4 @@ appsettings.local.json
 *.key
 
 # Flags
-web-frontend/req    uirements-installed.flag
+web-frontend/requirements-installed.flag

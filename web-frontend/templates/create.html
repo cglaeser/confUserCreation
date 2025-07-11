@@ -1,163 +1,192 @@
-{% extends "base.html" %}
-
-{% block title %}{{ gettext('Create Users') }} - {{ gettext('Conference User Management') }}{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ gettext('Create Users') }} - {{ gettext('Conference User Management') }}{%
+endblock %} {% block content %}
 <div class="row">
-    <div class="col-12">
-        <h2><i class="fas fa-user-plus text-success"></i> {{ gettext('Create Conference Users') }}</h2>
-        <p class="lead">{{ gettext('Create new users for your conference or workshop.') }}</p>
-    </div>
+  <div class="col-12">
+    <h2><i class="fas fa-user-plus text-success"></i> {{ gettext('Create Conference Users') }}</h2>
+    <p class="lead">{{ gettext('Create new users for your conference or workshop.') }}</p>
+  </div>
 </div>
 
 <form method="POST" class="needs-validation" novalidate>
-    <!-- Basic Settings -->
-    <div class="form-section">
-        <h5><i class="fas fa-cog"></i> {{ gettext('Basic Settings') }}</h5>
-        
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="conference_name" class="form-label">{{ gettext('Conference Name') }} *</label>
-                <input type="text" class="form-control" id="conference_name" name="conference_name" 
-                       placeholder="{{ gettext('e.g. TechConf2024') }}" required>
-                <div class="form-text">{{ gettext('Will be used as prefix for usernames (e.g. TechConf2024-user1)') }}</div>
-                <div class="invalid-feedback">{{ gettext('Please enter a conference name.') }}</div>
-            </div>
-            
-            <div class="col-md-6 mb-3">
-                <label for="user_count" class="form-label">{{ gettext('Number of Users') }}</label>
-                <input type="number" class="form-control" id="user_count" name="user_count" 
-                       value="10" min="1" max="1000">
-                <div class="form-text">{{ gettext('Number of users to create (1-1000)') }}</div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="domain" class="form-label">{{ gettext('Domain') }}</label>
-                <input type="text" class="form-control" id="domain" name="domain" 
-                       placeholder="{{ gettext('e.g. contoso.onmicrosoft.com') }}">
-                <div class="form-text">{{ gettext('Leave empty for tenant default domain') }}</div>
-            </div>
-            
-            <div class="col-md-6 mb-3">
-                <label for="password" class="form-label">{{ gettext('Password') }}</label>
-                <input type="password" class="form-control" id="password" name="password" 
-                       placeholder="{{ gettext('Leave empty for automatic password') }}">
-                <div class="form-text">{{ gettext('Leave empty to generate a random password') }}</div>
-            </div>
-        </div>
-    </div>
+  <!-- Basic Settings -->
+  <div class="form-section">
+    <h5><i class="fas fa-cog"></i> {{ gettext('Basic Settings') }}</h5>
 
-    <!-- User Options -->
-    <div class="form-section">
-        <h5><i class="fas fa-user-cog"></i> {{ gettext('User Options') }}</h5>
-        
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="force_password_change" 
-                   name="force_password_change" checked>
-            <label class="form-check-label" for="force_password_change">
-                {{ gettext('Force password change on first login') }}
-            </label>
-        </div>
-    </div>
-
-    <!-- Azure Resource Groups -->
-    <div class="form-section">
-        <h5><i class="fas fa-cloud"></i> {{ gettext('Azure Resource Groups') }}</h5>
-        
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="create_resource_groups" 
-                   name="create_resource_groups">
-            <label class="form-check-label" for="create_resource_groups">
-                {{ gettext('Create Azure resource groups for each user') }}
-            </label>
-        </div>
-        
-        <div class="row" id="azure_options" style="display: none;">
-            <div class="col-md-6 mb-3">
-                <label for="subscription_id" class="form-label">{{ gettext('Subscription ID') }}</label>
-                <input type="text" class="form-control" id="subscription_id" name="subscription_id" 
-                       placeholder="{{ gettext('Azure Subscription ID') }}">
-                <div class="form-text">{{ gettext('Leave empty for current subscription') }}</div>
-            </div>
-            
-            <div class="col-md-6 mb-3">
-                <label for="location" class="form-label">{{ gettext('Location') }}</label>
-                <input type="text" class="form-control" id="location" name="location" 
-                       placeholder="{{ gettext('e.g. West Europe') }}">
-                <div class="form-text">{{ gettext('Azure region for resource groups') }}</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Export Options -->
-    <div class="form-section">
-        <h5><i class="fas fa-file-excel"></i> {{ gettext('Export Options') }}</h5>
-        
-        <div class="mb-3">
-            <label for="excel_output_path" class="form-label">{{ gettext('Excel Output Path') }}</label>
-            <input type="text" class="form-control" id="excel_output_path" name="excel_output_path" 
-                   placeholder="{{ gettext('e.g. /workspaces/confUserCreation/users.xlsx') }}">
-            <div class="form-text">{{ gettext('Full path for Excel file with user information') }}</div>
-        </div>
-    </div>
-
-    <!-- Execution Options -->
-    <div class="form-section">
-        <h5><i class="fas fa-play"></i> {{ gettext('Execution Options') }}</h5>
-        
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="dry_run" name="dry_run">
-            <label class="form-check-label" for="dry_run">
-                {{ gettext('Dry Run (preview without actual creation)') }}
-            </label>
-        </div>
-    </div>
-
-    <!-- Buttons -->
     <div class="row">
-        <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ url_for('index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> {{ gettext('Back') }}
-                </a>
-                <button type="submit" class="btn btn-success btn-lg">
-                    <i class="fas fa-user-plus"></i> {{ gettext('Create Users') }}
-                </button>
-            </div>
-        </div>
-    </div>
-</form>
-{% endblock %}
+      <div class="col-md-6 mb-3">
+        <label for="conference_name" class="form-label">{{ gettext('Conference Name') }} *</label>
+        <input
+          type="text"
+          class="form-control"
+          id="conference_name"
+          name="conference_name"
+          placeholder="{{ gettext('e.g. TechConf2024') }}"
+          required
+        />
+        <div class="form-text">{{ gettext('Will be used as prefix for usernames (e.g. TechConf2024-user1)') }}</div>
+        <div class="invalid-feedback">{{ gettext('Please enter a conference name.') }}</div>
+      </div>
 
-{% block scripts %}
+      <div class="col-md-6 mb-3">
+        <label for="user_count" class="form-label">{{ gettext('Number of Users') }}</label>
+        <input type="number" class="form-control" id="user_count" name="user_count" value="10" min="1" max="1000" />
+        <div class="form-text">{{ gettext('Number of users to create (1-1000)') }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="domain" class="form-label">{{ gettext('Domain') }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="domain"
+          name="domain"
+          placeholder="{{ gettext('e.g. contoso.onmicrosoft.com') }}"
+        />
+        <div class="form-text">{{ gettext('Leave empty for tenant default domain') }}</div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="password" class="form-label">{{ gettext('Password') }}</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="{{ gettext('Leave empty for automatic password') }}"
+        />
+        <div class="form-text">{{ gettext('Leave empty to generate a random password') }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Options -->
+  <div class="form-section">
+    <h5><i class="fas fa-user-cog"></i> {{ gettext('User Options') }}</h5>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="force_password_change" name="force_password_change" checked />
+      <label class="form-check-label" for="force_password_change">
+        {{ gettext('Force password change on first login') }}
+      </label>
+    </div>
+  </div>
+
+  <!-- Azure Resource Groups -->
+  <div class="form-section">
+    <h5><i class="fas fa-cloud"></i> {{ gettext('Azure Resource Groups') }}</h5>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="create_resource_groups" name="create_resource_groups" />
+      <label class="form-check-label" for="create_resource_groups">
+        {{ gettext('Create Azure resource groups for each user') }}
+      </label>
+    </div>
+
+    <div class="row" id="azure_options" style="display: none">
+      <div class="col-md-6 mb-3">
+        <label for="subscription_id" class="form-label">{{ gettext('Subscription ID') }}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="subscription_id"
+          name="subscription_id"
+          placeholder="{{ gettext('Azure Subscription ID') }}"
+        />
+        <div class="form-text">{{ gettext('Leave empty for current subscription') }}</div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="location" class="form-label">{{ gettext('Location') }} *</label>
+        <select class="form-control" id="location" name="location" required>
+          <option value="">{{ gettext('Select an Azure region...') }}</option>
+          {% for location_code, location_name in AZURE_LOCATIONS %}
+          <option value="{{ location_code }}">{{ location_name }}</option>
+          {% endfor %}
+        </select>
+        <div class="form-text">{{ gettext('Azure region for resource groups') }}</div>
+        <div class="invalid-feedback">{{ gettext('Please select an Azure location.') }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Options -->
+  <div class="form-section">
+    <h5><i class="fas fa-file-excel"></i> {{ gettext('Export Options') }}</h5>
+
+    <div class="mb-3">
+      <label for="excel_output_path" class="form-label">{{ gettext('Excel Output Path') }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="excel_output_path"
+        name="excel_output_path"
+        placeholder="{{ gettext('e.g. /workspaces/confUserCreation/users.xlsx') }}"
+      />
+      <div class="form-text">{{ gettext('Full path for Excel file with user information') }}</div>
+    </div>
+  </div>
+
+  <!-- Execution Options -->
+  <div class="form-section">
+    <h5><i class="fas fa-play"></i> {{ gettext('Execution Options') }}</h5>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="dry_run" name="dry_run" />
+      <label class="form-check-label" for="dry_run"> {{ gettext('Dry Run (preview without actual creation)') }} </label>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="row">
+    <div class="col-12">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">
+          <i class="fas fa-arrow-left"></i> {{ gettext('Back') }}
+        </a>
+        <button type="submit" class="btn btn-success btn-lg">
+          <i class="fas fa-user-plus"></i> {{ gettext('Create Users') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %} {% block scripts %}
 <script>
-// Show/hide Azure options based on checkbox
-document.getElementById('create_resource_groups').addEventListener('change', function() {
+  // Show/hide Azure options based on checkbox
+  document.getElementById('create_resource_groups').addEventListener('change', function () {
     const azureOptions = document.getElementById('azure_options');
     if (this.checked) {
-        azureOptions.style.display = 'block';
+      azureOptions.style.display = 'block';
     } else {
-        azureOptions.style.display = 'none';
+      azureOptions.style.display = 'none';
     }
-});
+  });
 
-// Form validation
-(function() {
+  // Form validation
+  (function () {
     'use strict';
-    window.addEventListener('load', function() {
+    window.addEventListener(
+      'load',
+      function () {
         var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener(
+            'submit',
+            function (event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            },
+            false
+          );
         });
-    }, false);
-})();
+      },
+      false
+    );
+  })();
 </script>
 {% endblock %}

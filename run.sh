@@ -6,14 +6,14 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 echo "Starting Conference User Management Web Frontend..."
-echo "URL: http://localhost:5000"
+echo "URL: http://localhost:5001"
 echo "Press Ctrl+C to stop"
 echo
 
 # Install requirements if needed
 if [ ! -f "web-frontend/requirements_installed.flag" ]; then
     echo "Installing Python requirements..."
-    pip install -r web-frontend/requirements.txt
+    pip3 install -r web-frontend/requirements.txt
     touch web-frontend/requirements_installed.flag
 fi
 

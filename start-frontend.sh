@@ -96,7 +96,7 @@ echo -e "${GREEN}======================================${NC}"
 echo -e "${GREEN}  Flask-Server wird gestartet...     ${NC}"
 echo -e "${GREEN}======================================${NC}"
 echo
-echo -e "${YELLOW}URL:${NC} http://localhost:5000"
+echo -e "${YELLOW}URL:${NC} http://localhost:5001"
 echo -e "${YELLOW}Zum Beenden:${NC} Ctrl+C"
 echo
 

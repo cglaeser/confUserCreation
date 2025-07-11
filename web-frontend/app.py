@@ -57,6 +57,7 @@ def inject_conf_vars():
     return {
         'LANGUAGES': app.config['LANGUAGES'],
         'CURRENT_LANGUAGE': session.get('language', get_current_locale()),
+        'AZURE_LOCATIONS': get_azure_locations(),
         'gettext': gettext,
         'ngettext': ngettext
     }
@@ -87,6 +88,10 @@ def create_users():
             flash(gettext('Conference Name is required'), 'error')
             return render_template('create.html')
         
+        if not location:
+            flash(gettext('Location is required'), 'error')
+            return render_template('create.html')
+        
         try:
             user_count_int = int(user_count)
             if user_count_int < 1 or user_count_int > 1000:
@@ -97,7 +102,9 @@ def create_users():
             return render_template('create.html')
         
         # Build PowerShell command
-        ps_command = ['pwsh', '-File', '../powershell-scripts/New-ConferenceUsers.ps1']
+        project_root = os.path.dirname(os.getcwd())
+        script_path = os.path.join(project_root, 'powershell-scripts', 'New-ConferenceUsers.ps1')
+        ps_command = ['/usr/local/bin/pwsh', '-File', script_path]
         ps_command.extend(['-ConferenceName', conference_name])
         ps_command.extend(['-UserCount', str(user_count_int)])
         
@@ -106,13 +113,12 @@ def create_users():
         if password:
             ps_command.extend(['-Password', password])
         
-        ps_command.extend(['-ForcePasswordChange', str(force_password_change).lower()])
-        ps_command.extend(['-CreateResourceGroups', str(create_resource_groups).lower()])
+        ps_command.extend([f'-ForcePasswordChange:{str(force_password_change).lower()}'])
+        ps_command.extend([f'-CreateResourceGroups:{str(create_resource_groups).lower()}'])
         
         if subscription_id:
             ps_command.extend(['-SubscriptionId', subscription_id])
-        if location:
-            ps_command.extend(['-Location', location])
+        ps_command.extend(['-Location', location])
         if excel_output_path:
             ps_command.extend(['-ExcelOutputPath', excel_output_path])
         if dry_run:
@@ -125,7 +131,7 @@ def create_users():
                 ps_command,
                 capture_output=True,
                 text=True,
-                cwd='/workspaces/confUserCreation',
+                cwd=project_root,
                 timeout=300  # 5 minutes timeout
             )
             
@@ -170,14 +176,16 @@ def remove_users():
             return render_template('remove.html')
         
         # Build PowerShell command
-        ps_command = ['pwsh', '-File', '../powershell-scripts/Remove-ConferenceUsers.ps1']
+        project_root = os.path.dirname(os.getcwd())
+        script_path = os.path.join(project_root, 'powershell-scripts', 'Remove-ConferenceUsers.ps1')
+        ps_command = ['/usr/local/bin/pwsh', '-File', script_path]
         ps_command.extend(['-ConferenceName', conference_name])
         
         if domain:
             ps_command.extend(['-Domain', domain])
         
-        ps_command.extend(['-RemoveGroups', str(remove_groups).lower()])
-        ps_command.extend(['-RemoveResourceGroups', str(remove_resource_groups).lower()])
+        ps_command.extend([f'-RemoveGroups:{str(remove_groups).lower()}'])
+        ps_command.extend([f'-RemoveResourceGroups:{str(remove_resource_groups).lower()}'])
         
         if force:
             ps_command.append('-Force')
@@ -191,7 +199,7 @@ def remove_users():
                 ps_command,
                 capture_output=True,
                 text=True,
-                cwd='/workspaces/confUserCreation',
+                cwd=project_root,
                 timeout=300  # 5 minutes timeout
             )
             
@@ -230,18 +238,69 @@ def status():
 def check_powershell():
     """Check if PowerShell is available"""
     try:
-        result = subprocess.run(['pwsh', '--version'], capture_output=True, text=True, timeout=10)
+        result = subprocess.run(['/usr/local/bin/pwsh', '--version'], capture_output=True, text=True, timeout=10)
         return result.returncode == 0
     except:
         return False
 
 def check_scripts():
     """Check if PowerShell scripts are available"""
-    scripts = ['../powershell-scripts/New-ConferenceUsers.ps1', '../powershell-scripts/Remove-ConferenceUsers.ps1']
+    scripts = ['powershell-scripts/New-ConferenceUsers.ps1', 'powershell-scripts/Remove-ConferenceUsers.ps1']
     available = {}
+    project_root = os.path.dirname(os.getcwd())
     for script in scripts:
-        available[script] = os.path.exists(os.path.join('/workspaces/confUserCreation', script))
+        script_path = os.path.join(project_root, script)
+        available[f'../{script}'] = os.path.exists(script_path)
     return available
 
+def get_azure_locations():
+    """Get list of Azure locations for dropdown"""
+    return [
+        ('eastus', 'East US'),
+        ('eastus2', 'East US 2'),
+        ('centralus', 'Central US'),
+        ('northcentralus', 'North Central US'),
+        ('southcentralus', 'South Central US'),
+        ('westcentralus', 'West Central US'),
+        ('westus', 'West US'),
+        ('westus2', 'West US 2'),
+        ('westus3', 'West US 3'),
+        ('canadacentral', 'Canada Central'),
+        ('canadaeast', 'Canada East'),
+        ('brazilsouth', 'Brazil South'),
+        ('northeurope', 'North Europe'),
+        ('westeurope', 'West Europe'),
+        ('francecentral', 'France Central'),
+        ('francesouth', 'France South'),
+        ('germanynorth', 'Germany North'),
+        ('germanywestcentral', 'Germany West Central'),
+        ('norwayeast', 'Norway East'),
+        ('norwaywest', 'Norway West'),
+        ('switzerlandnorth', 'Switzerland North'),
+        ('switzerlandwest', 'Switzerland West'),
+        ('uksouth', 'UK South'),
+        ('ukwest', 'UK West'),
+        ('swedencentral', 'Sweden Central'),
+        ('swedensouth', 'Sweden South'),
+        ('eastasia', 'East Asia'),
+        ('southeastasia', 'Southeast Asia'),
+        ('australiacentral', 'Australia Central'),
+        ('australiacentral2', 'Australia Central 2'),
+        ('australiaeast', 'Australia East'),
+        ('australiasoutheast', 'Australia Southeast'),
+        ('centralindia', 'Central India'),
+        ('southindia', 'South India'),
+        ('westindia', 'West India'),
+        ('japaneast', 'Japan East'),
+        ('japanwest', 'Japan West'),
+        ('koreacentral', 'Korea Central'),
+        ('koreasouth', 'Korea South'),
+        ('southafricanorth', 'South Africa North'),
+        ('southafricawest', 'South Africa West'),
+        ('uaenorth', 'UAE North'),
+        ('uaecentral', 'UAE Central'),
+        ('qatarcentral', 'Qatar Central'),
+    ]
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)

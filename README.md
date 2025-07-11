@@ -28,6 +28,7 @@ confUserCreation/
 ## � Quick Start
 
 ### Option 1: Web Interface (Recommended)
+
 ```bash
 # Start the multilingual web frontend
 ./run.sh
@@ -37,6 +38,7 @@ confUserCreation/
 ```
 
 ### Option 2: PowerShell Scripts (Advanced Users)
+
 ```bash
 # Navigate to scripts folder
 cd powershell-scripts
@@ -51,6 +53,7 @@ cd powershell-scripts
 ## ✨ Features
 
 ### 🌐 Web Frontend
+
 - **Multilingual Support**: English, German, Spanish, Finnish interfaces
 - **Intuitive Interface**: User-friendly forms with real-time validation
 - **System Diagnostics**: Built-in status checking and requirements validation
@@ -58,8 +61,9 @@ cd powershell-scripts
 - **Security**: Form validation, error handling, and safe parameter passing
 
 ### ⚡ PowerShell Scripts
+
 - **Automated User Creation**: Bulk creation with standardized naming conventions
-- **Azure Integration**: Full Azure AD and Azure Resource Groups support  
+- **Azure Integration**: Full Azure AD and Azure Resource Groups support
 - **Excel Export**: Detailed spreadsheet output with all user information
 - **Dry-Run Mode**: Safe preview mode before making actual changes
 - **Comprehensive Logging**: Detailed progress and error reporting
@@ -67,24 +71,28 @@ cd powershell-scripts
 ## 📋 System Requirements
 
 ### For Web Frontend
+
 - **Python 3.6+** with pip
 - **Web Browser** (Chrome, Firefox, Safari, Edge)
 - **PowerShell Core (pwsh)** for backend script execution
 
 ### For PowerShell Scripts
+
 - **PowerShell 5.1+** or **PowerShell Core 6+**
 - **Azure CLI** or **PowerShell Az modules** (optional, for resource groups)
 - **Microsoft Graph PowerShell modules**
 
 ### Azure Permissions Required
+
 - `User.ReadWrite.All`
-- `Directory.ReadWrite.All` 
+- `Directory.ReadWrite.All`
 - `Group.ReadWrite.All`
 - Azure Subscription Contributor (for resource groups)
 
 ## � Usage Examples
 
 ### Web Interface Usage
+
 ```bash
 # Start the web server
 ./run.sh
@@ -97,6 +105,7 @@ cd powershell-scripts
 ```
 
 ### PowerShell Script Usage
+
 ```bash
 # Navigate to PowerShell scripts
 cd powershell-scripts
@@ -114,7 +123,7 @@ cd powershell-scripts
 ## 📖 Documentation
 
 - **[Web Frontend Guide](README-WebFrontend.md)** - Complete web interface documentation
-- **[Multilingual Setup](MULTILINGUAL_SETUP.md)** - Translation and i18n configuration  
+- **[Multilingual Setup](MULTILINGUAL_SETUP.md)** - Translation and i18n configuration
 - **[Deployment Guide](DEPLOYMENT.md)** - Production deployment instructions
 
 ## 🎯 PowerShell Script Features
@@ -135,29 +144,35 @@ cd powershell-scripts
 ## � Installation & Setup
 
 1. **📦 Install required PowerShell modules:**
+
    ```powershell
    Install-Module Microsoft.Graph.Authentication -Force
    Install-Module Microsoft.Graph.Users -Force
    Install-Module Microsoft.Graph.Groups -Force
    Install-Module Microsoft.Graph.Identity.DirectoryManagement -Force
+   Install-Module ImportExcel -Force
+   Install-Module Az.Accounts
    ```
 
 2. **🐍 Install Python dependencies (for web frontend):**
+
    ```bash
    pip install -r web-frontend/requirements.txt
    ```
 
 3. **🎯 Test your setup:**
+
    ```powershell
    .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 10
    ```
 
-3. **👀 Preview before creating (recommended):**
+4. **👀 Preview before creating (recommended):**
+
    ```powershell
    .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 10 -DryRun
    ```
 
-4. **🧹 Clean up when done:**
+5. **🧹 Clean up when done:**
    ```powershell
    .\Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024"
    ```
@@ -167,6 +182,7 @@ cd powershell-scripts
 ## 📋 Prerequisites
 
 ### 🔧 PowerShell Modules
+
 Install the required Microsoft Graph PowerShell modules:
 
 ```powershell
@@ -178,6 +194,7 @@ Install-Module Microsoft.Graph.Identity.DirectoryManagement -Force
 ```
 
 For Azure resource group functionality, also install:
+
 ```powershell
 # Additional modules for Azure resource management
 Install-Module Az.Accounts -Force
@@ -185,32 +202,38 @@ Install-Module Az.Resources -Force
 ```
 
 For Excel output functionality, install:
+
 ```powershell
 # Optional module for Excel output (highly recommended)
 Install-Module ImportExcel -Force
 ```
 
 ### 🔑 Azure Permissions
+
 The user running the script must have sufficient permissions in the Azure tenant:
 
-| Permission | Purpose |
-|------------|---------|
-| `User.ReadWrite.All` | 👤 To create and manage users |
-| `Directory.Read.All` | 📂 To read tenant information |
+| Permission            | Purpose                        |
+| --------------------- | ------------------------------ |
+| `User.ReadWrite.All`  | 👤 To create and manage users  |
+| `Directory.Read.All`  | 📂 To read tenant information  |
 | `Group.ReadWrite.All` | 👥 To create and manage groups |
 
 **Minimum Required Permissions:**
 The script executor must have adequate permissions to both Entra ID and Azure:
+
 - **Entra ID**: The above Microsoft Graph permissions are the minimum required
 - **Azure**: For resource group creation, **Contributor** or **Owner** role in the target subscription
 
 For Azure resource group creation:
+
 - 🏗️ **Contributor** or **Owner** role in the target subscription
 
 ### 🔐 Authentication
+
 You must be authenticated to Azure with appropriate permissions. The script will prompt for authentication when run.
 
 **⚠️ Important Limitations:**
+
 - 🚫 **MSA Personal Accounts**: This script cannot be executed with Microsoft Account (MSA) personal accounts. You must use a work or school account with access to an Azure Active Directory/Entra ID tenant.
 - 🏢 **Organizational Account Required**: The executing user must have an organizational account with the necessary permissions listed above.
 
@@ -219,11 +242,13 @@ You must be authenticated to Azure with appropriate permissions. The script will
 ### 👥 Creating Users
 
 #### 🎯 Basic Usage
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 15
 ```
 
 #### 🔧 Advanced Usage
+
 ```powershell
 # 🔑 Create users with custom password
 .\New-ConferenceUsers.ps1 -ConferenceName "DevWorkshop" -UserCount 5 -Password "TempPass123!"
@@ -247,11 +272,13 @@ You must be authenticated to Azure with appropriate permissions. The script will
 ### 🗑️ Removing Users
 
 #### 🧹 Basic Removal
+
 ```powershell
 .\Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024"
 ```
 
 #### 🔧 Advanced Removal
+
 ```powershell
 # 👥 Remove users and groups but not resource groups
 .\Remove-ConferenceUsers.ps1 -ConferenceName "DevWorkshop" -RemoveResourceGroups $false
@@ -270,90 +297,110 @@ You must be authenticated to Azure with appropriate permissions. The script will
 
 ### 🆕 New-ConferenceUsers.ps1
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `ConferenceName` | String | ✅ | - | 📛 Conference name used as username prefix |
-| `UserCount` | Integer | ❌ | 10 | 🔢 Number of users to create (1-1000) |
-| `Domain` | String | ❌ | Auto-detected | 🌐 Domain for user principal names |
-| `Password` | String | ❌ | Auto-generated | 🔑 Initial password for all users |
-| `ForcePasswordChange` | Boolean | ❌ | $true | 🔄 Force password change on first login |
-| `CreateResourceGroups` | Boolean | ❌ | $false | 🏗️ Create Azure resource groups for each user |
-| `SubscriptionId` | String | ❌ | Current context | 📋 Azure subscription ID for resource groups |
-| `Location` | String | ❌ | Interactive selection | 🌍 Azure location for resource groups |
-| `DryRun` | Switch | ❌ | $false | 👀 Preview changes without executing |
-| `ExcelOutputPath` | String | ❌ | Current directory | 📊 Path where Excel file should be saved |
+| Parameter              | Type    | Required | Default               | Description                                   |
+| ---------------------- | ------- | -------- | --------------------- | --------------------------------------------- |
+| `ConferenceName`       | String  | ✅       | -                     | 📛 Conference name used as username prefix    |
+| `UserCount`            | Integer | ❌       | 10                    | 🔢 Number of users to create (1-1000)         |
+| `Domain`               | String  | ❌       | Auto-detected         | 🌐 Domain for user principal names            |
+| `Password`             | String  | ❌       | Auto-generated        | 🔑 Initial password for all users             |
+| `ForcePasswordChange`  | Boolean | ❌       | $true                 | 🔄 Force password change on first login       |
+| `CreateResourceGroups` | Boolean | ❌       | $false                | 🏗️ Create Azure resource groups for each user |
+| `SubscriptionId`       | String  | ❌       | Current context       | 📋 Azure subscription ID for resource groups  |
+| `Location`             | String  | ❌       | Interactive selection | 🌍 Azure location for resource groups         |
+| `DryRun`               | Switch  | ❌       | $false                | 👀 Preview changes without executing          |
+| `ExcelOutputPath`      | String  | ❌       | Current directory     | 📊 Path where Excel file should be saved      |
 
 ### 🗑️ Remove-ConferenceUsers.ps1
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `ConferenceName` | String | ✅ | - | 📛 Conference name to identify users to remove |
-| `Domain` | String | ❌ | Auto-detected | 🌐 Domain for user principal names |
-| `RemoveGroups` | Boolean | ❌ | $true | 👥 Remove associated Entra ID group |
-| `RemoveResourceGroups` | Boolean | ❌ | $false | 🏗️ Remove associated Azure resource groups |
-| `Force` | Switch | ❌ | $false | 💥 Skip confirmation prompts |
-| `DryRun` | Switch | ❌ | $false | 👀 Preview changes without executing |
+| Parameter              | Type    | Required | Default       | Description                                    |
+| ---------------------- | ------- | -------- | ------------- | ---------------------------------------------- |
+| `ConferenceName`       | String  | ✅       | -             | 📛 Conference name to identify users to remove |
+| `Domain`               | String  | ❌       | Auto-detected | 🌐 Domain for user principal names             |
+| `RemoveGroups`         | Boolean | ❌       | $true         | 👥 Remove associated Entra ID group            |
+| `RemoveResourceGroups` | Boolean | ❌       | $false        | 🏗️ Remove associated Azure resource groups     |
+| `Force`                | Switch  | ❌       | $false        | 💥 Skip confirmation prompts                   |
+| `DryRun`               | Switch  | ❌       | $false        | 👀 Preview changes without executing           |
 
 ## 📖 Examples
 
 ### 📊 Example 1: Basic Conference Setup
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 25
 ```
+
 **✨ Output**: Creates 25 users named TechConf2024-user1 through TechConf2024-user25 and an Entra ID group "TechConf2024-users"
 
 ### 🔐 Example 2: Custom Password
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "DevWorkshop" -UserCount 10 -Password "Workshop2024!"
 ```
+
 **✨ Output**: Creates 10 users with the specified password and Entra ID group
 
-### 🔑 Example 3: Unique Passwords for Each User  
+### 🔑 Example 3: Unique Passwords for Each User
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "SecureConf" -UserCount 15
 ```
+
 **✨ Output**: Creates 15 users, each with a unique randomly generated password. Individual passwords are saved to the Excel export file for secure distribution.
 
 ### 🏗️ Example 4: Large Conference with Resource Groups
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "GlobalSummit" -UserCount 100 -Domain "company.com" -CreateResourceGroups $true -Location "East US"
 ```
+
 **✨ Output**: Creates 100 users using the specified domain, creates individual resource groups for each user in East US
 
 ### 🧹 Example 5: Complete Cleanup
+
 ```powershell
 .\Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -RemoveResourceGroups $true
 ```
+
 **✨ Output**: Removes all users, groups, and resource groups associated with TechConf2024
 
 ### 👀 Example 6: Dry Run Preview
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "TestConf" -UserCount 5 -DryRun
 ```
+
 **✨ Output**: Shows what would be created without actually creating anything, then asks for confirmation
 
 ### 🌍 Example 7: Multi-Location Setup
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "GlobalEvent" -UserCount 50 -CreateResourceGroups $true -SubscriptionId "12345678-1234-1234-1234-123456789012" -Location "West Europe"
 ```
+
 **✨ Output**: Creates users and resource groups in a specific subscription and Azure region
 
 ### 🔄 Example 8: No Password Change Required
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "TrainingLab" -UserCount 15 -ForcePasswordChange $false
 ```
+
 **✨ Output**: Creates users who won't be forced to change password on first login - perfect for training environments
 
 ### 🚫 Example 9: Safe Removal Preview
+
 ```powershell
 .\Remove-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -DryRun
 ```
+
 **✨ Output**: Shows exactly what would be removed without actually deleting anything - always safe to run first!
 
 ### 📊 Example 10: Excel Output to Custom Location
+
 ```powershell
 .\New-ConferenceUsers.ps1 -ConferenceName "TechConf2024" -UserCount 20 -ExcelOutputPath "C:\Conference\Reports"
 ```
+
 **✨ Output**: Creates 20 users with unique passwords and saves detailed Excel report to specified folder with usernames, individual passwords, and resource groups
 
 ## 📊 Output
@@ -370,6 +417,7 @@ The script provides detailed, color-coded output including:
 - 📊 **Excel report** with comprehensive user details (usernames, passwords, resource groups)
 
 ### 💻 Sample Output
+
 ```
 === Conference User Creation Script ===
 Conference Name: TechConf2024
@@ -427,41 +475,53 @@ Script completed successfully!
 ### 🚨 Common Issues
 
 #### 1️⃣ **Module Not Found**
+
 ```
 ❌ Error: Required module 'Microsoft.Graph.Authentication' is not installed
 ```
+
 **💡 Solution**: Install the required modules using `Install-Module`
+
 ```powershell
 Install-Module Microsoft.Graph.Authentication -Force
 ```
 
 #### 2️⃣ **Insufficient Permissions**
+
 ```
 ❌ Error: Insufficient privileges to complete the operation
 ```
+
 **💡 Solution**: Ensure the user has User.ReadWrite.All and Directory.Read.All permissions
 
 #### 3️⃣ **Authentication Failed**
+
 ```
 ❌ Error: Failed to connect to Microsoft Graph
 ```
+
 **💡 Solution**: Check your Azure credentials and network connectivity
 
 #### 4️⃣ **Domain Not Found**
+
 ```
 ❌ Error: The domain 'example.com' is not verified in this tenant
 ```
+
 **💡 Solution**: Use a verified domain or let the script auto-detect the default domain
 
 #### 5️⃣ **Resource Group Creation Failed**
+
 ```
 ❌ Error: Failed to create resource group
 ```
+
 **💡 Solution**: Ensure you have Contributor/Owner permissions in the Azure subscription
 
 ### 🆘 Getting Help
 
 For additional help with the script parameters:
+
 ```powershell
 Get-Help .\New-ConferenceUsers.ps1 -Full
 Get-Help .\Remove-ConferenceUsers.ps1 -Full
@@ -487,6 +547,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### 💡 Ways to Contribute
+
 - 🐛 Report bugs and issues
 - 💻 Submit code improvements
 - 📚 Improve documentation
@@ -498,6 +559,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 For issues and questions, please create an issue in the [GitHub repository](https://github.com/tsimiz/confUserCreation/issues).
 
 ### 📞 Getting Help
+
 - 📋 Check the [troubleshooting guide](#-troubleshooting)
 - 🔍 Search existing [GitHub Issues](https://github.com/tsimiz/confUserCreation/issues)
 - 🆕 Create a new issue with detailed information
